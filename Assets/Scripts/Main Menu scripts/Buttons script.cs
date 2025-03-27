@@ -7,7 +7,6 @@ public class Buttonsscript : MonoBehaviour
     [SerializeField] private GameObject m_controlsPanel;
 
     private bool m_controlsPanelEnabled;
-    private bool m_pauseMenuVisible;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +15,7 @@ public class Buttonsscript : MonoBehaviour
 
     public void LoadGame(int sceneNumber)
     {
+        LevelInfo.currentLevel = sceneNumber;
         SceneManager.LoadScene(sceneNumber);
     }
 
@@ -32,19 +32,6 @@ public class Buttonsscript : MonoBehaviour
             m_menuPanel.SetActive(false);
         }
         m_controlsPanelEnabled = !m_controlsPanelEnabled;
-    }
-
-    public void TogglePauseMenu()
-    {
-        if (m_pauseMenuVisible)
-        {
-            m_menuPanel.SetActive(false);
-        }
-        else
-        {
-            m_menuPanel.SetActive(true);
-        }
-        m_pauseMenuVisible = !m_pauseMenuVisible;
     }
 
     public void QuitApplication()
