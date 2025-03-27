@@ -11,8 +11,11 @@ public class PlayerContoller : MonoBehaviour
     private SpriteRenderer m_playerSpriteRenderer;
     private Vector2 m_playerDirection;
     private Vector2 m_playerJumpDirection;
-    private float m_jumpDuration = 0.75f;
+    private float m_jumpDuration = 1.25f;
     private float m_jumpTime = 0.0f;
+
+    private float a = 0.0f;
+    private float b = 0.5f;
     bool m_onGround;
 
     [SerializeField] private float m_playerSpeed;
@@ -40,6 +43,7 @@ public class PlayerContoller : MonoBehaviour
         if(collision.gameObject.tag == "Platforms")
         {
             m_onGround = true;
+            Debug.Log("On ground");
         }
     }
 
@@ -77,10 +81,14 @@ public class PlayerContoller : MonoBehaviour
             m_playerRigidBody.linearVelocityX = 0f;
         }
 
-        if(m_playerJumpDirection == Vector2.up)
+        if (m_playerJumpDirection == Vector2.up)
         {
             m_playerRigidBody.linearVelocity = (m_playerJumpDirection + m_playerDirection) * (m_playerSpeed * Time.fixedDeltaTime);
         }
+        //else if(m_playerJumpDirection == Vector2.down)
+        //{
+        //    m_playerRigidBody.linearVelocity = (m_playerJumpDirection + m_playerDirection) * (m_playerSpeed + Time.fixedDeltaTime);
+        //}
     }
 
     // Update is called once per frame
@@ -100,14 +108,28 @@ public class PlayerContoller : MonoBehaviour
             m_jumpTime = 0.0f;
         }
 
-        if (m_jumpInputs.IsPressed() && Time.time > m_jumpTime && m_onGround)
+        if (m_jumpInputs.IsPressed() && Time.time > m_jumpTime)
         {
+            Debug.Log("Jumping");
             m_jumpTime = Time.time + m_jumpDuration;
             m_playerJumpDirection = Vector2.up;
+            a = 0.0f;
         }
         else
         {
-            m_playerJumpDirection = Vector2.down;
+            if(a < b)
+            {
+                a += Time.deltaTime;
+                m_playerJumpDirection = Vector2.zero;
+            }
+            else /*if (a == b)*/
+            {
+                m_playerJumpDirection = Vector2.down;
+            }
+            //else
+            //{
+            //    m_playerJumpDirection = Vector2.zero;
+            //}
         }
 
         if(m_playerSpriteRenderer != null)
