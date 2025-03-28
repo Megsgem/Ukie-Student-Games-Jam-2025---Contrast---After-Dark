@@ -45,6 +45,10 @@ public class PlayerContoller : MonoBehaviour
             m_onGround = true;
             Debug.Log("On ground");
         }
+        else if(collision.gameObject.tag == "Exit")
+        {
+            SceneManager.LoadScene(4);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -59,16 +63,16 @@ public class PlayerContoller : MonoBehaviour
     {
         if(m_playerTransform.position.y < -9.3)
         {
-            SceneManager.LoadScene(2);
-        }
-    }
-    private void Win()
-    {
-        if(m_playerTransform.position.x > 24)
-        {
             SceneManager.LoadScene(3);
         }
     }
+    //private void Win()
+    //{
+    //    if(m_playerTransform.position.x > 24)
+    //    {
+    //        SceneManager.LoadScene(3);
+    //    }
+    //}
    
     private void FixedUpdate()
     {
@@ -144,7 +148,7 @@ public class PlayerContoller : MonoBehaviour
             }
         }
 
-        Win();
+        //Win();
         Death();
     }
 }
