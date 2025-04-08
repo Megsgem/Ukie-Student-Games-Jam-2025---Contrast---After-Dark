@@ -16,7 +16,15 @@ public class GameOverButtons : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        LevelInfo.currentLevel++;
+        if(LevelInfo.currentLevel < 2)
+        {
+            LevelInfo.currentLevel++;
+        }
+        else if(LevelInfo.currentLevel >= 2)
+        {
+            LevelInfo.currentLevel = 0;
+        }
+
         SceneManager.LoadScene(LevelInfo.currentLevel);
     }
 
