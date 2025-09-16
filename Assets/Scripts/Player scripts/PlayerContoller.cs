@@ -12,6 +12,7 @@ public class PlayerContoller : MonoBehaviour
     private Vector2 m_playerDirection;
 
     public bool m_onGround;
+    private bool m_hasJumped;
 
     [SerializeField] private float m_playerSpeed;
     [SerializeField] private float m_maxPlayerSpeed;
@@ -72,7 +73,10 @@ public class PlayerContoller : MonoBehaviour
 
         if (m_jumpInputs.IsPressed() && m_onGround/*Time.time > m_jumpTime*/)
         {
-            Debug.Log("Jumping");
+            if(m_hasJumped == false)
+            {
+                m_hasJumped = true;
+            }
             m_playerRigidBody.linearVelocity = new Vector2(m_playerRigidBody.linearVelocityX, 4.4f);
         }
 
@@ -86,6 +90,11 @@ public class PlayerContoller : MonoBehaviour
             {
                 m_playerSpriteRenderer.color = Color.white;
             }
+        }
+
+        if(m_hasJumped == false)
+        {
+            m_onGround = true;
         }
 
         //Win();
