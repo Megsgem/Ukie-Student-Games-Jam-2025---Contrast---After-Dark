@@ -11,7 +11,7 @@ public class PlayerContoller : MonoBehaviour
     private SpriteRenderer m_playerSpriteRenderer;
     private Vector2 m_playerDirection;
 
-    public bool m_onGround;
+    [HideInInspector] public bool m_onGround;
     private bool m_hasJumped;
 
     [SerializeField] private float m_playerSpeed;
